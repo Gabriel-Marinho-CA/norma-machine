@@ -4,6 +4,16 @@ from operacoes import Operacoes
 from functions import soma, multiplicacao, fatorial
 
 
+def testa_valores_positivos(message):
+    while True:
+        try:
+            value = int(input(message))
+            assert value >= 0
+            return value
+        except (ValueError, AssertionError):
+            print("Digite apenas valores inteiros positivos")
+            
+
 def main():
     print("\n1 - Somar")
     print("2 - Multiplicação")
@@ -18,14 +28,7 @@ def main():
         elif option == '1':
             print("\nDigite os valores de A e B:\n")
 
-            while True:
-                try:
-                    temp = int(input("Digite o valor de A: "))
-                    assert (temp > 0)
-                    break
-                except:
-                    print("Apenas valores positivos")
-
+            temp =  int(testa_valores_positivos(input("Digite o valor de A: ")))
             A = Operacoes(temp)
 
             while True:
