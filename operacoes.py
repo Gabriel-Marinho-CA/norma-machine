@@ -4,14 +4,14 @@ class Operacoes(object):
     def __init__(self, value):
         self.value = value
 
-    def add(self):
+    def ADD(self):
         self.value += 1
 
-    def sub(self):
-        if (self.zer()) != 1:
+    def SUB(self):
+        if (self.ZER()) != 1:
             self.value -= 1
         else:
             self.value = 0
 
-    def zer(self):
+    def ZER(self):
         return 1 if self.value == 0 else 0

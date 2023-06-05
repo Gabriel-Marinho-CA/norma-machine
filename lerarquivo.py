@@ -8,8 +8,8 @@ def ler_arquivo(filename):
         numero = int(partes[0].replace(':', ''))
         comando = partes[1]
         variavel = partes[2]
-        valor1 = int(partes[3])
-        valor2 = int(partes[4])
-        instrucao = (numero, comando, variavel, valor1, valor2)
+        value1 = int(partes[3])
+        value2 = int(partes[4])
+        instrucao = (numero, comando, variavel, value1, value2)
         fatorial[numero] = instrucao
     return fatorial

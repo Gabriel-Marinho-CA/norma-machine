@@ -1,146 +1,172 @@
-#!/usr/local/bin/python
-# encoding: utf-8
 from operacoes import Operacoes
 from functions import soma, multiplicacao, fatorial
 
-
-def testa_valores_positivos(message):
-    while True:
-        try:
-            value = int(input(message))
-            assert value >= 0
-            return value
-        except (ValueError, AssertionError):
-            print("Digite apenas valores inteiros positivos")
-            
-
 def main():
+    # === MENU STAT--- #
     print("\n1 - Somar")
     print("2 - Multiplicação")
     print("3 - Fatorial")
     print("0 - Sair")
 
+    # === MENU END--- #
+
     while True:
-        option = input("\nDigite sua opção: ")
-        if option == '0':
+
+        op = input("\nDigite sua opção: ")
+
+        if op == '0':
             print("Saiu")
             exit()
-        elif option == '1':
+
+        elif op == '1':
             print("\nDigite os valores de A e B:\n")
 
-            temp =  int(testa_valores_positivos(input("Digite o valor de A: ")))
-            A = Operacoes(temp)
+            # testa se o input é positivo e guarda os valores dos registradores
 
             while True:
                 try:
-                    temp = int(input("Digite o valor de B: "))
-                    assert (temp > 0)
+                    inputUser = int(input("Digite o value de A: "))
+                    assert (inputUser > 0)
                     break
                 except:
                     print("Apenas valores positivos")
 
-            B = Operacoes(temp)
+            A = Operacoes(inputUser)
+
+            while True:
+                try:
+                    inputUser = int(input("Digite o value de B: "))
+                    assert (inputUser > 0)
+                    break
+                except:
+                    print("Apenas valores positivos")
+
+            B = Operacoes(inputUser)
             C = Operacoes(0)
             D = Operacoes(0)
-            program = soma.get()
+
+            # Pega as instrucoes do .txt
+            instrucoes = soma.get()
             break
-        elif option == '2':
+        elif op == '2':
             print("\n\nDigite os valores de A e B:\n ")
             while True:
                 try:
-                    temp = int(input("Digite o valor de A: "))
-                    assert (temp > 0)
+                    inputUser = int(input("Digite o value de A: "))
+                    assert (inputUser > 0)
                     break
                 except:
                     print("Apenas valores positivos")
 
-            A = Operacoes(temp)
+            A = Operacoes(inputUser)
 
             while True:
                 try:
-                    temp = int(input("Digite o valor de B: "))
-                    assert (temp > 0)
+                    inputUser = int(input("Digite o value de B: "))
+                    assert (inputUser > 0)
                     break
                 except:
                     print("Apenas valores positivos")
 
-            B = Operacoes(temp)
+            B = Operacoes(inputUser)
             C = Operacoes(0)
             D = Operacoes(0)
-            program = multiplicacao.get()
+            instrucoes = multiplicacao.get()
             break
 
-        elif option == '3':
+        elif op == '3':
             print("\nDigite os valores de A\n")
             while True:
                 try:
-                    temp = int(input("Digite o valor de A: "))
-                    assert (temp >= 0)
+                    inputUser = int(input("Digite o value de A: "))
+                    assert (inputUser >= 0)
                     break
                 except:
                     print("Apenas valores positivos")
 
-            A = Operacoes(temp)
+            A = Operacoes(inputUser)
             B = Operacoes(0)
             C = Operacoes(0)
             D = Operacoes(0)
-            program = fatorial.get()
+            instrucoes = fatorial.get()
             break
         else:
             print("Escolha uma das opções válidas")
 
-    instructions = []
-    for linha in program:
-        instructions += [[linha[0], linha[1], linha[2], linha[3], linha[4]]]
+    arrInstrucoes = []
+    for coluna in instrucoes:
+        # Cria as instrucoes, quebrando as colunas, e montando o array separando elas
+        arrInstrucoes += [
+            [
+                coluna[0],
+                coluna[1],
+                coluna[2],
+                coluna[3],
+                coluna[4]
+            ]
+        ]
+
     i = 0
 
-    print("\nInicio\n-> (({},{},{},{}),{})".format(A.value,
-          B.value, C.value, D.value, i))
-    while i < len(instructions):
+    print("\nInicio\n-> (({},{},{},{}),{})"
+          .format(
+              A.value,
+              B.value,
+              C.value,
+              D.value,
+              i
+          ))
+
+    while i < len(arrInstrucoes):
         try:
-            if instructions[i][1] == 'ADD':
-                if instructions[i][2] == 'A':
-                    A.add()
-                elif instructions[i][2] == 'B':
-                    B.add()
-                elif instructions[i][2] == 'C':
-                    C.add()
-                else:
-                    D.add()
-                i = instructions[i][3]
+
+            if arrInstrucoes[i][1] == 'ADD':
+
+                # Relaciona a string á variavel e executa os attr relacionados a ela
+
+                getattr(locals()[arrInstrucoes[i][2]], 'ADD')()
+
+                i = arrInstrucoes[i][3]
                 i -= 1
-                print("(({},{},{},{}),{})".format(
-                    A.value, B.value, C.value, D.value, i))
-            elif instructions[i][1] == 'SUB':
-                if instructions[i][2] == 'A':
-                    A.sub()
-                elif instructions[i][2] == 'B':
-                    B.sub()
-                elif instructions[i][2] == 'C':
-                    C.sub()
-                else:
-                    D.sub()
-                i = instructions[i][3]
+
+                print("(({},{},{},{}),{})"
+                      .format(
+                          A.value,
+                          B.value,
+                          C.value,
+                          D.value,
+                          i
+                      ))
+
+            elif arrInstrucoes[i][1] == 'SUB':
+                getattr(locals()[arrInstrucoes[i][2]], 'SUB')()
+                i = arrInstrucoes[i][3]
                 i -= 1
-                print("(({},{},{},{}),{})".format(
-                    A.value, B.value, C.value, D.value, i))
-            elif instructions[i][1] == 'ZER':
-                if instructions[i][2] == 'A':
-                    i = instructions[i][3] if (
-                        A.zer()) == 1 else instructions[i][4]
-                elif instructions[i][2] == 'B':
-                    i = instructions[i][3] if (
-                        B.zer()) == 1 else instructions[i][4]
-                elif instructions[i][2] == 'C':
-                    i = instructions[i][3] if (
-                        C.zer()) == 1 else instructions[i][4]
-                else:
-                    i = instructions[i][3] if (
-                        D.zer()) == 1 else instructions[i][4]
+
+                print("(({},{},{},{}),{})"
+                      .format(
+                          A.value,
+                          B.value,
+                          C.value,
+                          D.value,
+                          i
+                      ))
+            elif arrInstrucoes[i][1] == 'ZER':
+
+                i = arrInstrucoes[i][3] if (
+                    getattr(locals()[arrInstrucoes[i][2]], 'ZER')() == 1) else arrInstrucoes[i][4]
+
                 i -= 1
-                print("(({},{},{},{}),{})".format(
-                    A.value, B.value, C.value, D.value, i))
-        except IndexError:
+                print("(({},{},{},{}),{})"
+                      .format(
+                          A.value,
+                          B.value,
+                          C.value,
+                          D.value,
+                          i
+                      ))
+
+        except:
             print("\nOs valores dos registradores são:")
             print("A: ", A.value)
             print("B: ", B.value)
@@ -148,14 +174,14 @@ def main():
             print("D: ", D.value)
 
 
-if __name__ == '__main__':
-    main()
-    while True:
-        option = input("Deseja rodar o programa novamente? [Y/N] ")
-        if option == 'N' or option == 'n':
-            print("\n Fim do programa!")
-            break
-        elif option == 'Y' or option == 'y':
-            main()
-        else:
-            print("Escolha uma opção válida")
+main()
+
+while True:
+    op = input("Deseja rodar o programa novamente? [s/n] ")
+    if op == 'n':
+        print("\n Fim do programa!")
+        break
+    elif op == 's':
+        main()
+    else:
+        print("Escolha uma opção válida")
