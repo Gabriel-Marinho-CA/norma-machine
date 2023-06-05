@@ -1,0 +1,12 @@
+1: ZER A 4 2
+2: ADD C 3 3 
+3: SUB A 1 1 
+4: ZER C 13 5
+5: ZER B 9 6 
+6: ADD A 7 7 
+7: ADD D 8 8
+8: SUB B 5 5
+9: ZER D 12 10
+10: ADD B 11 11
+11: SUB D 9 9 
+12: SUB C 4 4
