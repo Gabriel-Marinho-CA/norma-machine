@@ -1,7 +1,7 @@
 # Norma Machine
 Simulate a register machine functions
 
-## &nbsp; How to use
+## How to use
 There's a few .txt files that indicates the mathematical operations as : <br> 
 * fatorial.txt [fatorial] <br>
 * multiplicacao.txt [multiplication]<br>
